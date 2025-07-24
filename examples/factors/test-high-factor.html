@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackMagic Test - High Factor Conversion</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%);
+            color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .settings-info {
+            background-color: #fff3e0;
+            border: 2px solid #ff9800;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .settings-info h3 {
+            color: #f57c00;
+            margin-top: 0;
+        }
+
+        .settings-info code {
+            background-color: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+
+        .card {
+            background-color: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .toggle-btn {
+            background-color: #ff5722;
+            color: #ffffff;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background-color: #d84315;
+            transform: scale(1.05);
+        }
+
+        /* Extreme color variations for testing high factor */
+        .extreme-colors {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .color-test {
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            border: 3px solid;
+        }
+
+        .very-light {
+            background-color: #f8f9fa;
+            color: #495057;
+            border-color: #dee2e6;
+        }
+
+        .light-gray {
+            background-color: #e9ecef;
+            color: #6c757d;
+            border-color: #ced4da;
+        }
+
+        .medium-gray {
+            background-color: #6c757d;
+            color: #ffffff;
+            border-color: #495057;
+        }
+
+        .dark-gray {
+            background-color: #495057;
+            color: #ffffff;
+            border-color: #343a40;
+        }
+
+        .very-dark {
+            background-color: #212529;
+            color: #ffffff;
+            border-color: #000000;
+        }
+
+        .bright-red {
+            background-color: #ff1744;
+            color: #ffffff;
+            border-color: #d50000;
+        }
+
+        .bright-blue {
+            background-color: #2196f3;
+            color: #ffffff;
+            border-color: #1976d2;
+        }
+
+        .bright-green {
+            background-color: #4caf50;
+            color: #ffffff;
+            border-color: #388e3c;
+        }
+
+        .bright-yellow {
+            background-color: #ffeb3b;
+            color: #333333;
+            border-color: #fbc02d;
+        }
+
+        .text-samples {
+            margin: 20px 0;
+        }
+
+        .text-light { color: #f8f9fa; }
+        .text-medium-light { color: #e9ecef; }
+        .text-medium { color: #6c757d; }
+        .text-medium-dark { color: #495057; }
+        .text-dark { color: #343a40; }
+        .text-very-dark { color: #212529; }
+
+        .gradient-box {
+            background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            color: #333333;
+        }
+
+        .shadow-box {
+            background-color: #ffffff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+            color: #333333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔥 BlackMagic Test: High Factor Conversion</h1>
+            <p>Testing extreme color changes with factor = 0.8</p>
+        </div>
+
+        <div class="settings-info">
+            <h3>⚙️ Current Settings</h3>
+            <p><strong>Mode:</strong> Dynamic Color Conversion</p>
+            <p><strong>Factor:</strong> <code>0.8</code> (High intensity)</p>
+            <p><strong>Background Color:</strong> <code>#0d0d0d</code> (Very dark)</p>
+            <p><strong>Auto Switch:</strong> <code>true</code></p>
+            <p><strong>Cookie Duration:</strong> <code>1 day</code></p>
+            <p><strong>Description:</strong> High factor causes dramatic color shifts. Light colors become much darker, dark colors become much lighter.</p>
+        </div>
+
+        <button id="toggleBtn" class="toggle-btn">🌓 Toggle Dark Mode</button>
+
+        <div class="card">
+            <h2>Extreme Color Range Test</h2>
+            <p>These elements test how the high factor (0.8) affects different color intensities:</p>
+            <div class="extreme-colors">
+                <div class="color-test very-light">Very Light Colors</div>
+                <div class="color-test light-gray">Light Gray</div>
+                <div class="color-test medium-gray">Medium Gray</div>
+                <div class="color-test dark-gray">Dark Gray</div>
+                <div class="color-test very-dark">Very Dark</div>
+                <div class="color-test bright-red">Bright Red</div>
+                <div class="color-test bright-blue">Bright Blue</div>
+                <div class="color-test bright-green">Bright Green</div>
+                <div class="color-test bright-yellow">Bright Yellow</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Text Color Intensity Test</h2>
+            <div class="text-samples">
+                <p class="text-light">Very light text (should become much darker)</p>
+                <p class="text-medium-light">Medium light text</p>
+                <p class="text-medium">Medium gray text</p>
+                <p class="text-medium-dark">Medium dark text</p>
+                <p class="text-dark">Dark text (should become much lighter)</p>
+                <p class="text-very-dark">Very dark text (should become very light)</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Gradient and Shadow Test</h2>
+            <div class="gradient-box">
+                <h3>Gradient Background</h3>
+                <p>This box has a complex gradient background. The high factor should dramatically alter the text color.</p>
+            </div>
+            
+            <div class="shadow-box">
+                <h3>Shadow Box</h3>
+                <p>This box has a strong shadow effect. Test how the high factor affects both background and text.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Edge Cases</h2>
+            <p style="color: #000000;">Pure black text (RGB: 0,0,0)</p>
+            <p style="color: #ffffff; background-color: #333333; padding: 10px; border-radius: 5px;">Pure white text on dark background</p>
+            <p style="color: #808080;">Perfect gray text (RGB: 128,128,128)</p>
+            <p style="color: #ff0000;">Pure red text (RGB: 255,0,0)</p>
+            <p style="color: #00ff00;">Pure green text (RGB: 0,255,0)</p>
+            <p style="color: #0000ff;">Pure blue text (RGB: 0,0,255)</p>
+        </div>
+    </div>
+
+    <script src="../../src/blackmagic.js"></script>
+    <script>
+        // Initialize with high factor
+        const        blackMagic = new BlackMagic({
+            factor: 0.8,  // High factor for dramatic changes
+            backgroundColor: '#0d0d0d',  // Very dark background
+            cookieName: 'high-factor-test',
+            cookieDuration: 1,
+            autoSwitch: true
+        });
+
+        // Add event listener to the toggle button
+        document.getElementById('toggleBtn').addEventListener('click', function() {
+            blackMagic.toggle();
+            
+            // Update button text
+            setTimeout(() => {
+                const isDark = document.body.style.backgroundColor === '#0d0d0d';
+                this.textContent = isDark ? '☀️ Switch to Light Mode' : '🌓 Toggle Dark Mode';
+            }, 100);
+        });
+
+        console.log('High Factor Test initialized with factor: 0.8');
+    </script>
+</body>
+</html>

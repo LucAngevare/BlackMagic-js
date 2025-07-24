@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackMagic Test - Low Factor Conversion</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .settings-info {
+            background-color: #e8f5e8;
+            border: 2px solid #4caf50;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .settings-info h3 {
+            color: #2e7d32;
+            margin-top: 0;
+        }
+
+        .settings-info code {
+            background-color: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+
+        .card {
+            background-color: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .toggle-btn {
+            background-color: #4caf50;
+            color: #ffffff;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background-color: #388e3c;
+            transform: scale(1.05);
+        }
+
+        /* Subtle color variations for testing low factor */
+        .subtle-colors {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .color-test {
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            border: 2px solid;
+        }
+
+        .subtle-light {
+            background-color: #fafafa;
+            color: #424242;
+            border-color: #e0e0e0;
+        }
+
+        .subtle-gray {
+            background-color: #f5f5f5;
+            color: #616161;
+            border-color: #bdbdbd;
+        }
+
+        .subtle-dark {
+            background-color: #424242;
+            color: #ffffff;
+            border-color: #212121;
+        }
+
+        .muted-red {
+            background-color: #ffebee;
+            color: #c62828;
+            border-color: #ef5350;
+        }
+
+        .muted-blue {
+            background-color: #e3f2fd;
+            color: #1565c0;
+            border-color: #42a5f5;
+        }
+
+        .muted-green {
+            background-color: #e8f5e8;
+            color: #2e7d32;
+            border-color: #66bb6a;
+        }
+
+        .muted-orange {
+            background-color: #fff3e0;
+            color: #f57c00;
+            border-color: #ffb74d;
+        }
+
+        .muted-purple {
+            background-color: #f3e5f5;
+            color: #7b1fa2;
+            border-color: #ba68c8;
+        }
+
+        .text-samples {
+            margin: 20px 0;
+        }
+
+        .text-subtle-light { color: #757575; }
+        .text-subtle-medium { color: #616161; }
+        .text-subtle-dark { color: #424242; }
+        .text-near-black { color: #212121; }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .before-after {
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .before {
+            background-color: #e0e0e0;
+            color: #424242;
+        }
+
+        .after-demo {
+            background-color: #bdbdbd;
+            color: #212121;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌱 BlackMagic Test: Low Factor Conversion</h1>
+            <p>Testing subtle color changes with factor = 0.1</p>
+        </div>
+
+        <div class="settings-info">
+            <h3>⚙️ Current Settings</h3>
+            <p><strong>Mode:</strong> Dynamic Color Conversion</p>
+            <p><strong>Factor:</strong> <code>0.1</code> (Low intensity)</p>
+            <p><strong>Background Color:</strong> <code>#f5f5f5</code> (Light gray)</p>
+            <p><strong>Auto Switch:</strong> <code>true</code></p>
+            <p><strong>Cookie Duration:</strong> <code>365 days</code></p>
+            <p><strong>Description:</strong> Low factor causes subtle color shifts. Changes should be barely noticeable, maintaining readability while providing a gentle theme change.</p>
+        </div>
+
+        <button id="toggleBtn" class="toggle-btn">🌓 Toggle Dark Mode</button>
+
+        <div class="card">
+            <h2>Subtle Color Range Test</h2>
+            <p>These elements test how the low factor (0.1) creates gentle color adjustments:</p>
+            <div class="subtle-colors">
+                <div class="color-test subtle-light">Subtle Light</div>
+                <div class="color-test subtle-gray">Subtle Gray</div>
+                <div class="color-test subtle-dark">Subtle Dark</div>
+                <div class="color-test muted-red">Muted Red</div>
+                <div class="color-test muted-blue">Muted Blue</div>
+                <div class="color-test muted-green">Muted Green</div>
+                <div class="color-test muted-orange">Muted Orange</div>
+                <div class="color-test muted-purple">Muted Purple</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Text Readability Test</h2>
+            <p>With a low factor, text should remain highly readable with only slight color shifts:</p>
+            <div class="text-samples">
+                <p class="text-subtle-light">Subtle light gray text - should barely change</p>
+                <p class="text-subtle-medium">Subtle medium gray text - minimal adjustment</p>
+                <p class="text-subtle-dark">Subtle dark gray text - gentle shift</p>
+                <p class="text-near-black">Near black text - slight lightening only</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Before/After Comparison Simulation</h2>
+            <p>This shows approximately what the subtle changes should look like:</p>
+            <div class="comparison-grid">
+                <div class="before-after before">
+                    <h4>Original Colors</h4>
+                    <p>This represents how colors look in light mode</p>
+                </div>
+                <div class="before-after after-demo">
+                    <h4>Slightly Adjusted</h4>
+                    <p>This shows the subtle change you should expect</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Fine-tuned Content</h2>
+            <p>Regular paragraph text should show minimal color change while maintaining excellent readability.</p>
+            <ul>
+                <li>List item with standard text color</li>
+                <li>Another list item to test consistency</li>
+                <li>Third item for comprehensive testing</li>
+            </ul>
+            <blockquote style="border-left: 4px solid #4caf50; padding-left: 15px; color: #555555;">
+                This blockquote has a slightly different text color that should shift very subtly.
+            </blockquote>
+        </div>
+
+        <div class="card">
+            <h2>UI Element Test</h2>
+            <p>Testing how UI elements respond to subtle changes:</p>
+            <button style="background-color: #e0e0e0; color: #424242; padding: 10px 20px; border: 1px solid #bdbdbd; border-radius: 4px; margin: 5px;">Gray Button</button>
+            <button style="background-color: #f5f5f5; color: #616161; padding: 10px 20px; border: 1px solid #e0e0e0; border-radius: 4px; margin: 5px;">Light Button</button>
+            <button style="background-color: #424242; color: #ffffff; padding: 10px 20px; border: 1px solid #212121; border-radius: 4px; margin: 5px;">Dark Button</button>
+        </div>
+    </div>
+
+    <script src="../../src/blackmagic.js"></script>
+    <script>
+        // Initialize with low factor
+        const        blackMagic = new BlackMagic({
+            factor: 0.1,  // Low factor for subtle changes
+            backgroundColor: '#f5f5f5',  // Light gray background
+            cookieName: 'low-factor-test',
+            cookieDuration: 365,
+            autoSwitch: true
+        });
+
+        // Add event listener to the toggle button
+        document.getElementById('toggleBtn').addEventListener('click', function() {
+            blackMagic.toggle();
+            
+            // Update button text
+            setTimeout(() => {
+                const isDark = document.body.style.backgroundColor === 'rgb(245, 245, 245)';
+                this.textContent = isDark ? '☀️ Switch to Light Mode' : '🌓 Toggle Dark Mode';
+            }, 100);
+        });
+
+        console.log('Low Factor Test initialized with factor: 0.1');
+        console.log('Note: Changes should be very subtle and barely noticeable');
+    </script>
+</body>
+</html>

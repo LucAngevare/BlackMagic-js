@@ -1,0 +1,39 @@
+# Development files
+.vscode/
+.git/
+.gitignore
+*.log
+node_modules/
+
+# Documentation (included in published package)
+# docs/
+# examples/
+
+# Build artifacts that shouldn't be published
+.DS_Store
+Thumbs.db
+
+# Test files (examples are included)
+test/
+*.test.js
+
+# Configuration files
+.eslintrc*
+.prettierrc*
+rollup.config.js
+webpack.config.js
+tsconfig.json
+
+# IDE files
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackMagic Test - Custom Background Colors</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #9c27b0 0%, #673ab7 100%);
+            color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .settings-info {
+            background-color: #f3e5f5;
+            border: 2px solid #9c27b0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .settings-info h3 {
+            color: #7b1fa2;
+            margin-top: 0;
+        }
+
+        .settings-info code {
+            background-color: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+
+        .card {
+            background-color: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .background-demos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .bg-demo {
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+        }
+
+        .bg-demo:hover {
+            transform: scale(1.05);
+            border-color: #fff;
+        }
+
+        .bg-demo.active {
+            border-color: #ffeb3b;
+            box-shadow: 0 0 20px rgba(255, 235, 59, 0.5);
+        }
+
+        .bg-pure-black { background-color: #000000; }
+        .bg-dark-gray { background-color: #1a1a1a; }
+        .bg-charcoal { background-color: #2c2c2c; }
+        .bg-dark-blue { background-color: #0d47a1; }
+        .bg-dark-green { background-color: #1b5e20; }
+        .bg-dark-purple { background-color: #4a148c; }
+        .bg-dark-red { background-color: #b71c1c; }
+        .bg-custom { background-color: #3e2723; }
+
+        .current-bg-display {
+            background-color: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .current-bg-display h4 {
+            color: #1976d2;
+            margin-top: 0;
+        }
+
+        .bg-preview {
+            width: 100px;
+            height: 50px;
+            margin: 10px auto;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .toggle-btn {
+            background-color: #9c27b0;
+            color: #ffffff;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background-color: #7b1fa2;
+            transform: scale(1.05);
+        }
+
+        .contrast-test {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .contrast-box {
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            border: 2px solid #ddd;
+        }
+
+        .white-text { color: #ffffff; }
+        .light-gray-text { color: #e0e0e0; }
+        .medium-gray-text { color: #bdbdbd; }
+        .yellow-text { color: #ffeb3b; }
+        .cyan-text { color: #00bcd4; }
+        .pink-text { color: #e91e63; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎨 BlackMagic Test: Custom Background Colors</h1>
+            <p>Testing different dark mode background colors</p>
+        </div>
+
+        <div class="settings-info">
+            <h3>⚙️ Current Settings</h3>
+            <p><strong>Mode:</strong> Dynamic Color Conversion</p>
+            <p><strong>Factor:</strong> <code>0.4</code> (Default)</p>
+            <p><strong>Initial Background:</strong> <code>#1a1a1a</code> (Dark Gray)</p>
+            <p><strong>Auto Switch:</strong> <code>true</code></p>
+            <p><strong>Cookie Duration:</strong> <code>7 days</code></p>
+            <p><strong>Description:</strong> Click on different background color options below to see how various dark backgrounds affect readability and visual appeal.</p>
+        </div>
+
+        <div class="current-bg-display">
+            <h4>Current Background Color</h4>
+            <div id="bgPreview" class="bg-preview" style="background-color: #1a1a1a;">#1a1a1a</div>
+            <p id="bgDescription">Dark Gray - Balanced contrast</p>
+        </div>
+
+        <div class="card">
+            <h2>Choose Background Color</h2>
+            <p>Click on any background color below to test it:</p>
+            <div class="background-demos">
+                <div class="bg-demo bg-pure-black" data-color="#000000" data-name="Pure Black" data-desc="Maximum contrast, pure black">
+                    Pure Black<br>#000000
+                </div>
+                <div class="bg-demo bg-dark-gray active" data-color="#1a1a1a" data-name="Dark Gray" data-desc="Balanced contrast, easy on eyes">
+                    Dark Gray<br>#1a1a1a
+                </div>
+                <div class="bg-demo bg-charcoal" data-color="#2c2c2c" data-name="Charcoal" data-desc="Lighter dark theme, softer contrast">
+                    Charcoal<br>#2c2c2c
+                </div>
+                <div class="bg-demo bg-dark-blue" data-color="#0d47a1" data-name="Dark Blue" data-desc="Cool blue tone, professional look">
+                    Dark Blue<br>#0d47a1
+                </div>
+                <div class="bg-demo bg-dark-green" data-color="#1b5e20" data-name="Dark Green" data-desc="Natural green, easy on eyes">
+                    Dark Green<br>#1b5e20
+                </div>
+                <div class="bg-demo bg-dark-purple" data-color="#4a148c" data-name="Dark Purple" data-desc="Rich purple tone, creative feel">
+                    Dark Purple<br>#4a148c
+                </div>
+                <div class="bg-demo bg-dark-red" data-color="#b71c1c" data-name="Dark Red" data-desc="Warm red tone, dramatic effect">
+                    Dark Red<br>#b71c1c
+                </div>
+                <div class="bg-demo bg-custom" data-color="#3e2723" data-name="Brown" data-desc="Warm brown tone, vintage feel">
+                    Brown<br>#3e2723
+                </div>
+            </div>
+        </div>
+
+        <button id="toggleBtn" class="toggle-btn">🌓 Toggle Dark Mode</button>
+
+        <div class="card">
+            <h2>Text Contrast Test</h2>
+            <p>Different text colors to test readability against various backgrounds:</p>
+            <div class="contrast-test">
+                <div class="contrast-box white-text">White Text (#ffffff)</div>
+                <div class="contrast-box light-gray-text">Light Gray Text (#e0e0e0)</div>
+                <div class="contrast-box medium-gray-text">Medium Gray Text (#bdbdbd)</div>
+                <div class="contrast-box yellow-text">Yellow Text (#ffeb3b)</div>
+                <div class="contrast-box cyan-text">Cyan Text (#00bcd4)</div>
+                <div class="contrast-box pink-text">Pink Text (#e91e63)</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Content Readability Test</h2>
+            <p>This is a standard paragraph to test how readable normal content is against different background colors. The text should remain easily readable regardless of the background choice.</p>
+            
+            <h3>Subheading Example</h3>
+            <p>Another paragraph with <strong>bold text</strong> and <em>italic text</em> to test various text styles.</p>
+            
+            <ul>
+                <li>List item one for testing</li>
+                <li>List item two with more content</li>
+                <li>List item three to complete the test</li>
+            </ul>
+
+            <blockquote style="border-left: 4px solid #9c27b0; padding-left: 15px; color: #666; font-style: italic;">
+                This is a blockquote to test how special content areas look with different background colors.
+            </blockquote>
+        </div>
+    </div>
+
+    <script src="../../src/blackmagic.js"></script>
+    <script>
+        // Initialize with default dark gray background
+        let blackMagic = new BlackMagic({
+            backgroundColor: '#1a1a1a',
+            factor: 0.4,
+            cookieName: 'custom-bg-test',
+            cookieDuration: 7,
+            autoSwitch: true
+        });
+
+        // Background color options
+        const bgOptions = document.querySelectorAll('.bg-demo');
+        const bgPreview = document.getElementById('bgPreview');
+        const bgDescription = document.getElementById('bgDescription');
+
+        // Add click handlers for background selection
+        bgOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                const color = this.dataset.color;
+                const name = this.dataset.name;
+                const desc = this.dataset.desc;
+
+                // Remove active class from all options
+                bgOptions.forEach(opt => opt.classList.remove('active'));
+                // Add active class to clicked option
+                this.classList.add('active');
+
+                // Update preview
+                bgPreview.style.backgroundColor = color;
+                bgPreview.textContent = color;
+                bgDescription.textContent = `${name} - ${desc}`;
+
+                // Create new BlackMagic instance with new background color
+                blackMagic = new BlackMagic({
+                    backgroundColor: color,
+                    factor: 0.4,
+                    cookieName: 'custom-bg-test',
+                    cookieDuration: 7,
+                    autoSwitch: true
+                });
+
+                // If currently in dark mode, reapply with new background
+                if (document.body.style.backgroundColor && document.body.style.backgroundColor !== 'rgb(255, 255, 255)') {
+                    blackMagic.applyTheme('dark');
+                }
+
+                console.log(`Background changed to: ${color} (${name})`);
+            });
+        });
+
+        // Add initial event listener to the toggle button
+        document.getElementById('toggleBtn').addEventListener('click', function() {
+            blackMagic.toggle();
+            
+            // Update button text
+            setTimeout(() => {
+                const isDark = document.body.style.backgroundColor && 
+                              document.body.style.backgroundColor !== 'rgb(255, 255, 255)' && 
+                              document.body.style.backgroundColor !== '';
+                this.textContent = isDark ? '☀️ Switch to Light Mode' : '🌓 Toggle Dark Mode';
+            }, 100);
+        });
+
+        console.log('Custom Background Test initialized');
+        console.log('Click on different background colors to test them');
+    </script>
+</body>
+</html>

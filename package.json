@@ -1,0 +1,54 @@
+{
+  "name": "blackmagic-js",
+  "version": "0.1.0",
+  "description": "A powerful dark mode framework with automatic color adjustment and contrast optimization",
+  "main": "dist/blackmagic.js",
+  "module": "dist/blackmagic.esm.js",
+  "unpkg": "dist/blackmagic.min.js",
+  "files": [
+    "dist/",
+    "src/",
+    "examples/",
+    "docs/"
+  ],
+  "scripts": {
+    "build": "npm run build:umd && npm run build:esm && npm run build:min",
+    "build:umd": "cp src/blackmagic.js dist/blackmagic.js",
+    "build:esm": "echo 'export default BlackMagic;' | cat src/blackmagic.js - > dist/blackmagic.esm.js",
+    "build:min": "npm run minify || echo 'Minification skipped - install uglify-js globally for minification'",
+    "minify": "uglifyjs src/blackmagic.js --compress --mangle --output dist/blackmagic.min.js",
+    "dev": "python3 -m http.server 8000",
+    "start": "npm run dev",
+    "test": "echo 'Open examples/index.html to run tests'",
+    "examples": "npm run dev",
+    "clean": "rm -rf dist && mkdir -p dist",
+    "rebuild": "npm run clean && npm run build"
+  },
+  "keywords": [
+    "dark-mode",
+    "theme",
+    "color-adjustment",
+    "accessibility",
+    "contrast",
+    "javascript",
+    "ui",
+    "framework"
+  ],
+  "author": "Luc Angevare",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lucangevare/BlackMagic-js.git"
+  },
+  "homepage": "https://github.com/lucangevare/BlackMagic-js#readme",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "devDependencies": {
+    "uglify-js": "^3.17.4"
+  },
+  "peerDependencies": {},
+  "browser": "dist/blackmagic.js",
+  "jsdelivr": "dist/blackmagic.min.js",
+  "type": "module"
+}

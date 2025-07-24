@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackMagic Framework Test Page</title>
+    <style>
+        /* Light mode styles - extensive color usage for testing */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background-color: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .card h2 {
+            color: #495057;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 8px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            color: #ffffff;
+        }
+
+        .btn-success:hover {
+            background-color: #1e7e34;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: #ffffff;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        .btn-warning {
+            background-color: #ffc107;
+            color: #212529;
+        }
+
+        .btn-warning:hover {
+            background-color: #e0a800;
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+            color: #ffffff;
+        }
+
+        .btn-info:hover {
+            background-color: #138496;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: #ffffff;
+        }
+
+        .btn-secondary:hover {
+            background-color: #545b62;
+        }
+
+        .alert {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            border-left: 5px solid;
+        }
+
+        .alert-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border-left-color: #17a2b8;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border-left-color: #28a745;
+        }
+
+        .alert-warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border-left-color: #ffc107;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left-color: #dc3545;
+        }
+
+        .text-samples {
+            margin: 20px 0;
+        }
+
+        .text-primary { color: #007bff; }
+        .text-secondary { color: #6c757d; }
+        .text-success { color: #28a745; }
+        .text-danger { color: #dc3545; }
+        .text-warning { color: #ffc107; }
+        .text-info { color: #17a2b8; }
+        .text-dark { color: #343a40; }
+        .text-muted { color: #6c757d; }
+
+        .navbar {
+            background-color: #343a40;
+            padding: 15px 0;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .navbar li {
+            margin: 0 15px;
+        }
+
+        .navbar a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background-color: #495057;
+        }
+
+        .progress-container {
+            margin: 20px 0;
+        }
+
+        .progress {
+            background-color: #e9ecef;
+            border-radius: 20px;
+            height: 25px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-bar {
+            height: 100%;
+            border-radius: 20px;
+            transition: width 0.3s ease;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .progress-bar-blue { background-color: #007bff; width: 75%; }
+        .progress-bar-green { background-color: #28a745; width: 60%; }
+        .progress-bar-red { background-color: #dc3545; width: 45%; }
+        .progress-bar-orange { background-color: #fd7e14; width: 85%; }
+
+        .sidebar {
+            background-color: #f1f3f4;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .sidebar h3 {
+            color: #495057;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 8px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            padding: 8px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .sidebar a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .sidebar a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        .code-block {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            color: #495057;
+            overflow-x: auto;
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin: 2px;
+        }
+
+        .badge-primary { background-color: #007bff; color: #ffffff; }
+        .badge-success { background-color: #28a745; color: #ffffff; }
+        .badge-danger { background-color: #dc3545; color: #ffffff; }
+        .badge-warning { background-color: #ffc107; color: #212529; }
+        .badge-info { background-color: #17a2b8; color: #ffffff; }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background-color: #495057;
+            color: #ffffff;
+            padding: 15px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #dee2e6;
+            color: #495057;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        tr:hover {
+            background-color: #e9ecef;
+        }
+
+        .footer {
+            background-color: #343a40;
+            color: #ffffff;
+            padding: 30px;
+            margin-top: 50px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .footer a {
+            color: #17a2b8;
+        }
+
+        .footer a:hover {
+            color: #138496;
+        }
+
+        .form-group {
+            margin: 15px 0;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #495057;
+            font-weight: bold;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ced4da;
+            border-radius: 5px;
+            font-size: 1rem;
+            color: #495057;
+            background-color: #ffffff;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        .toggle-container {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #e9ecef;
+            border-radius: 8px;
+        }
+
+        #darkModeToggle {
+            background-color: #495057;
+            color: #ffffff;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #darkModeToggle:hover {
+            background-color: #343a40;
+            transform: scale(1.05);
+        }
+
+        .color-palette {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .color-swatch {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid #333333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .swatch-red { background-color: #dc3545; }
+        .swatch-blue { background-color: #007bff; }
+        .swatch-green { background-color: #28a745; }
+        .swatch-yellow { background-color: #ffc107; color: #333333; }
+        .swatch-purple { background-color: #6f42c1; }
+        .swatch-orange { background-color: #fd7e14; }
+        .swatch-pink { background-color: #e83e8c; }
+        .swatch-teal { background-color: #20c997; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <h1>🌙 BlackMagic Framework Test Page</h1>
+            <p>Comprehensive testing environment for dark mode color conversion</p>
+        </div>
+
+        <!-- Toggle Button -->
+        <div class="toggle-container">
+            <button id="darkModeToggle">🌓 Toggle Dark Mode</button>
+            <p style="margin-top: 10px; color: #6c757d;">Click the button above to test the BlackMagic framework!</p>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="navbar">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Grid -->
+        <div class="grid">
+            <!-- Card 1: Buttons -->
+            <div class="card">
+                <h2>Button Variations</h2>
+                <p>Testing various button colors and hover states:</p>
+                <button class="btn btn-primary">Primary Button</button>
+                <button class="btn btn-success">Success Button</button>
+                <button class="btn btn-danger">Danger Button</button>
+                <button class="btn btn-warning">Warning Button</button>
+                <button class="btn btn-info">Info Button</button>
+                <button class="btn btn-secondary">Secondary Button</button>
+            </div>
+
+            <!-- Card 2: Text Colors -->
+            <div class="card">
+                <h2>Text Color Samples</h2>
+                <div class="text-samples">
+                    <p class="text-primary">Primary text color</p>
+                    <p class="text-secondary">Secondary text color</p>
+                    <p class="text-success">Success text color</p>
+                    <p class="text-danger">Danger text color</p>
+                    <p class="text-warning">Warning text color</p>
+                    <p class="text-info">Info text color</p>
+                    <p class="text-dark">Dark text color</p>
+                    <p class="text-muted">Muted text color</p>
+                </div>
+            </div>
+
+            <!-- Card 3: Alerts -->
+            <div class="card">
+                <h2>Alert Messages</h2>
+                <div class="alert alert-info">
+                    <strong>Info!</strong> This is an info alert with light blue background.
+                </div>
+                <div class="alert alert-success">
+                    <strong>Success!</strong> This is a success alert with light green background.
+                </div>
+                <div class="alert alert-warning">
+                    <strong>Warning!</strong> This is a warning alert with light yellow background.
+                </div>
+                <div class="alert alert-danger">
+                    <strong>Danger!</strong> This is a danger alert with light red background.
+                </div>
+            </div>
+
+            <!-- Card 4: Progress Bars -->
+            <div class="card">
+                <h2>Progress Indicators</h2>
+                <div class="progress-container">
+                    <p>Blue Progress (75%)</p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-blue">75%</div>
+                    </div>
+                    
+                    <p>Green Progress (60%)</p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-green">60%</div>
+                    </div>
+                    
+                    <p>Red Progress (45%)</p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-red">45%</div>
+                    </div>
+                    
+                    <p>Orange Progress (85%)</p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-orange">85%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5: Badges -->
+            <div class="card">
+                <h2>Badges & Labels</h2>
+                <p>Various badge styles for testing:</p>
+                <span class="badge badge-primary">Primary</span>
+                <span class="badge badge-success">Success</span>
+                <span class="badge badge-danger">Danger</span>
+                <span class="badge badge-warning">Warning</span>
+                <span class="badge badge-info">Info</span>
+                <br><br>
+                <p>Highlighted text: <span class="highlight">This text is highlighted</span> within a paragraph.</p>
+            </div>
+
+            <!-- Card 6: Code Block -->
+            <div class="card">
+                <h2>Code Examples</h2>
+                <p>Code blocks with syntax highlighting simulation:</p>
+                <div class="code-block">
+// Initialize BlackMagic
+const blackMagic = new BlackMagic({
+    cookieName: 'darkmode',
+    backgroundColor: '#000',
+    factor: 0.4
+});
+
+// Add event listener to toggle button
+document.getElementById('darkModeToggle').addEventListener('click', function() {
+    blackMagic.toggle();
+});
+                </div>
+            </div>
+        </div>
+
+        <!-- Color Palette Section -->
+        <div class="card">
+            <h2>Color Palette Testing</h2>
+            <p>Various color swatches to test color conversion:</p>
+            <div class="color-palette">
+                <div class="color-swatch swatch-red">Red</div>
+                <div class="color-swatch swatch-blue">Blue</div>
+                <div class="color-swatch swatch-green">Green</div>
+                <div class="color-swatch swatch-yellow">Yellow</div>
+                <div class="color-swatch swatch-purple">Purple</div>
+                <div class="color-swatch swatch-orange">Orange</div>
+                <div class="color-swatch swatch-pink">Pink</div>
+                <div class="color-swatch swatch-teal">Teal</div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="#documentation">Documentation</a></li>
+                <li><a href="#examples">Examples</a></li>
+                <li><a href="#api">API Reference</a></li>
+                <li><a href="#support">Support</a></li>
+                <li><a href="#github">GitHub Repository</a></li>
+            </ul>
+        </div>
+
+        <!-- Table Section -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Status</th>
+                        <th>Color Test</th>
+                        <th>Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dark Mode Toggle</td>
+                        <td><span class="badge badge-success">Active</span></td>
+                        <td style="color: #007bff;">Blue Text</td>
+                        <td><span class="badge badge-danger">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>Color Conversion</td>
+                        <td><span class="badge badge-warning">Testing</span></td>
+                        <td style="color: #28a745;">Green Text</td>
+                        <td><span class="badge badge-warning">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>Cookie Storage</td>
+                        <td><span class="badge badge-success">Active</span></td>
+                        <td style="color: #dc3545;">Red Text</td>
+                        <td><span class="badge badge-info">Low</span></td>
+                    </tr>
+                    <tr>
+                        <td>Auto Detection</td>
+                        <td><span class="badge badge-primary">Planned</span></td>
+                        <td style="color: #6f42c1;">Purple Text</td>
+                        <td><span class="badge badge-success">Low</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Form Section -->
+        <div class="card">
+            <h2>Form Elements</h2>
+            <form>
+                <div class="form-group">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" class="form-control" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea id="message" class="form-control" rows="4" placeholder="Enter your message"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="theme">Preferred Theme:</label>
+                    <select id="theme" class="form-control">
+                        <option value="light">Light Mode</option>
+                        <option value="dark">Dark Mode</option>
+                        <option value="auto">Auto Detect</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Form</button>
+            </form>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <h3>BlackMagic Framework</h3>
+            <p>A powerful and flexible dark mode implementation for modern web applications.</p>
+            <p>
+                <a href="#docs">Documentation</a> | 
+                <a href="#examples">Examples</a> | 
+                <a href="#github">GitHub</a> | 
+                <a href="#support">Support</a>
+            </p>
+            <p style="margin-top: 20px; opacity: 0.8;">
+                © 2025 BlackMagic Framework. Built for comprehensive color testing.
+            </p>
+        </footer>
+    </div>
+
+    <!-- Include the BlackMagic framework -->
+    <script src="../../src/blackmagic.js"></script>
+    
+    <!-- Initialize and test the framework -->
+    <script>
+        // Initialize BlackMagic with custom options
+        const blackMagic = new BlackMagic({
+            cookieName: 'blackmagic-test',
+            backgroundColor: '#1a1a1a',
+            factor: 0.5,
+            cookieDuration: 30
+        });
+
+        // Add event listener to the toggle button
+        document.getElementById('darkModeToggle').addEventListener('click', function() {
+            blackMagic.toggle();
+            
+            // Update button text
+            setTimeout(() => {
+                const isDark = document.body.style.backgroundColor === blackMagic.backgroundColor;
+                this.textContent = isDark ? '☀️ Switch to Light Mode' : '🌓 Toggle Dark Mode';
+            }, 100);
+        });
+
+        // Console logging for debugging
+        console.log('BlackMagic Test Page Loaded');
+        console.log('Framework initialized with options:', {
+            cookieName: 'blackmagic-test',
+            backgroundColor: '#1a1a1a',
+            factor: 0.5,
+            cookieDuration: 30
+        });
+    </script>
+</body>
+</html>

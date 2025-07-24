@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackMagic Test - Cookie Duration Testing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #00bcd4 0%, #009688 100%);
+            color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .settings-info {
+            background-color: #e0f2f1;
+            border: 2px solid #009688;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .settings-info h3 {
+            color: #00695c;
+            margin-top: 0;
+        }
+
+        .settings-info code {
+            background-color: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+
+        .card {
+            background-color: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .duration-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .duration-option {
+            background-color: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .duration-option:hover {
+            background-color: #bbdefb;
+            transform: scale(1.05);
+        }
+
+        .duration-option.active {
+            background-color: #1976d2;
+            color: white;
+            border-color: #0d47a1;
+        }
+
+        .cookie-info {
+            background-color: #fff3e0;
+            border: 2px solid #ff9800;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .cookie-info h4 {
+            color: #f57c00;
+            margin-top: 0;
+        }
+
+        .cookie-details {
+            font-family: monospace;
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            word-break: break-all;
+        }
+
+        .toggle-btn {
+            background-color: #00bcd4;
+            color: #ffffff;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background-color: #0097a7;
+            transform: scale(1.05);
+        }
+
+        .test-controls {
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .test-controls button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .test-controls button:hover {
+            background-color: #388e3c;
+        }
+
+        .test-controls button.danger {
+            background-color: #f44336;
+        }
+
+        .test-controls button.danger:hover {
+            background-color: #d32f2f;
+        }
+
+        .instructions {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .instructions h4 {
+            color: #2e7d32;
+            margin-top: 0;
+        }
+
+        .expiry-display {
+            background-color: #ffe0e6;
+            border: 2px solid #f06292;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .expiry-display h4 {
+            color: #c2185b;
+            margin-top: 0;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .status-box {
+            background-color: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 5px;
+            padding: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⏰ BlackMagic Test: Cookie Duration</h1>
+            <p>Testing different cookie expiration times</p>
+        </div>
+
+        <div class="settings-info">
+            <h3>⚙️ Current Settings</h3>
+            <p><strong>Mode:</strong> Dynamic Color Conversion</p>
+            <p><strong>Factor:</strong> <code>0.4</code> (Default)</p>
+            <p><strong>Background Color:</strong> <code>#2d2d2d</code></p>
+            <p><strong>Initial Duration:</strong> <code>1 hour</code></p>
+            <p><strong>Auto Switch:</strong> <code>true</code></p>
+            <p><strong>Description:</strong> Test how different cookie durations affect theme persistence. Choose different durations and test by refreshing the page or waiting for expiration.</p>
+        </div>
+
+        <div class="instructions">
+            <h4>🧪 Testing Instructions:</h4>
+            <ol>
+                <li>Select a cookie duration from the options below</li>
+                <li>Toggle to dark mode</li>
+                <li>Refresh the page to see if the theme persists</li>
+                <li>For short durations (1-5 minutes), wait and refresh to see expiration</li>
+                <li>Check browser dev tools → Application → Cookies to see expiration times</li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <h2>Cookie Duration Options</h2>
+            <p>Click on a duration to test different cookie expiration times:</p>
+            <div class="duration-options">
+                <div class="duration-option active" data-duration="0.041" data-name="1 Hour">
+                    1 Hour<br><small>Good for testing</small>
+                </div>
+                <div class="duration-option" data-duration="0.0035" data-name="5 Minutes">
+                    5 Minutes<br><small>Quick expiry test</small>
+                </div>
+                <div class="duration-option" data-duration="0.0007" data-name="1 Minute">
+                    1 Minute<br><small>Very quick expiry</small>
+                </div>
+                <div class="duration-option" data-duration="1" data-name="1 Day">
+                    1 Day<br><small>Standard duration</small>
+                </div>
+                <div class="duration-option" data-duration="7" data-name="1 Week">
+                    1 Week<br><small>Extended persistence</small>
+                </div>
+                <div class="duration-option" data-duration="30" data-name="1 Month">
+                    1 Month<br><small>Long-term storage</small>
+                </div>
+                <div class="duration-option" data-duration="365" data-name="1 Year">
+                    1 Year<br><small>Maximum persistence</small>
+                </div>
+                <div class="duration-option" data-duration="0" data-name="Session Only">
+                    Session Only<br><small>Expires when browser closes</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="expiry-display">
+            <h4>Current Cookie Expiration</h4>
+            <p id="expiryInfo">Cookie will expire in: 1 hour</p>
+            <p id="expiryDate">Exact expiry: <span id="expiryTimestamp">--</span></p>
+        </div>
+
+        <button id="toggleBtn" class="toggle-btn">🌓 Toggle Dark Mode</button>
+
+        <div class="test-controls">
+            <h3>Test Controls</h3>
+            <button onclick="refreshPage()">🔄 Refresh Page</button>
+            <button onclick="showCookieDetails()">🍪 Show Cookie Details</button>
+            <button onclick="clearCookie()" class="danger">🗑️ Clear Cookie</button>
+            <button onclick="checkCookieStatus()">📊 Check Cookie Status</button>
+        </div>
+
+        <div class="cookie-info">
+            <h4>Current Cookie Information</h4>
+            <div id="cookieDetails" class="cookie-details">
+                Click "Show Cookie Details" to view current cookie information
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Status Dashboard</h2>
+            <div class="status-grid">
+                <div class="status-box">
+                    <h5>Theme Status</h5>
+                    <p id="themeStatus">Light Mode</p>
+                </div>
+                <div class="status-box">
+                    <h5>Cookie Exists</h5>
+                    <p id="cookieExists">Checking...</p>
+                </div>
+                <div class="status-box">
+                    <h5>Selected Duration</h5>
+                    <p id="selectedDuration">1 Hour</p>
+                </div>
+                <div class="status-box">
+                    <h5>Auto Switch Status</h5>
+                    <p id="autoSwitchStatus">Enabled</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Color Test Content</h2>
+            <p>This content changes color when you toggle dark mode. Use this to test that the theme persists correctly after page refreshes within the cookie duration.</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 15px 0;">
+                <div style="background-color: #ffcdd2; padding: 15px; border-radius: 5px; text-align: center; color: #c62828;">Red</div>
+                <div style="background-color: #c8e6c9; padding: 15px; border-radius: 5px; text-align: center; color: #2e7d32;">Green</div>
+                <div style="background-color: #bbdefb; padding: 15px; border-radius: 5px; text-align: center; color: #1565c0;">Blue</div>
+                <div style="background-color: #fff3e0; padding: 15px; border-radius: 5px; text-align: center; color: #f57c00;">Orange</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../src/blackmagic.js"></script>
+    <script>
+        // Initialize with 1 hour duration
+        let currentDuration = 0.041; // 1 hour in days
+        let blackMagic = new BlackMagic({
+            backgroundColor: '#2d2d2d',
+            factor: 0.4,
+            cookieName: 'duration-test',
+            cookieDuration: currentDuration,
+            autoSwitch: true
+        });
+
+        // Duration option handlers
+        const durationOptions = document.querySelectorAll('.duration-option');
+        durationOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove active class from all options
+                durationOptions.forEach(opt => opt.classList.remove('active'));
+                // Add active class to clicked option
+                this.classList.add('active');
+
+                const duration = parseFloat(this.dataset.duration);
+                const name = this.dataset.name;
+                currentDuration = duration;
+
+                // Update display
+                document.getElementById('selectedDuration').textContent = name;
+                updateExpiryDisplay(duration);
+
+                // Create new BlackMagic instance with new duration
+                blackMagic = new BlackMagic({
+                    backgroundColor: '#2d2d2d',
+                    factor: 0.4,
+                    cookieName: 'duration-test',
+                    cookieDuration: duration,
+                    autoSwitch: true
+                });
+
+                console.log(`Cookie duration changed to: ${name} (${duration} days)`);
+            });
+        });
+
+        // Update expiry display
+        function updateExpiryDisplay(durationInDays) {
+            const expiryInfo = document.getElementById('expiryInfo');
+            const expiryTimestamp = document.getElementById('expiryTimestamp');
+
+            if (durationInDays === 0) {
+                expiryInfo.textContent = 'Cookie will expire when browser closes (session only)';
+                expiryTimestamp.textContent = 'Session cookie';
+            } else {
+                const now = new Date();
+                const expiryDate = new Date(now.getTime() + (durationInDays * 24 * 60 * 60 * 1000));
+                
+                if (durationInDays < 1) {
+                    const hours = Math.round(durationInDays * 24);
+                    const minutes = Math.round(durationInDays * 24 * 60);
+                    if (hours < 1) {
+                        expiryInfo.textContent = `Cookie will expire in: ${minutes} minutes`;
+                    } else {
+                        expiryInfo.textContent = `Cookie will expire in: ${hours} hours`;
+                    }
+                } else {
+                    const days = Math.round(durationInDays);
+                    expiryInfo.textContent = `Cookie will expire in: ${days} days`;
+                }
+                
+                expiryTimestamp.textContent = expiryDate.toLocaleString();
+            }
+        }
+
+        // Utility functions
+        function refreshPage() {
+            location.reload();
+        }
+
+        function showCookieDetails() {
+            const cookieValue = blackMagic.getCookie('duration-test');
+            const allCookies = document.cookie;
+            
+            document.getElementById('cookieDetails').innerHTML = 
+                `<strong>Cookie Name:</strong> duration-test<br>
+                 <strong>Cookie Value:</strong> ${cookieValue || 'Not set'}<br>
+                 <strong>All Cookies:</strong> ${allCookies || 'None'}<br>
+                 <strong>Duration Setting:</strong> ${currentDuration} days`;
+        }
+
+        function clearCookie() {
+            document.cookie = 'duration-test=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            console.log('Cookie cleared');
+            updateStatus();
+        }
+
+        function checkCookieStatus() {
+            updateStatus();
+            showCookieDetails();
+        }
+
+        function updateStatus() {
+            const cookieExists = blackMagic.getCookie('duration-test') !== null;
+            const isDark = document.body.style.backgroundColor && 
+                          document.body.style.backgroundColor !== 'rgb(255, 255, 255)' && 
+                          document.body.style.backgroundColor !== '';
+
+            document.getElementById('themeStatus').textContent = isDark ? 'Dark Mode' : 'Light Mode';
+            document.getElementById('cookieExists').textContent = cookieExists ? 'Yes' : 'No';
+            document.getElementById('autoSwitchStatus').textContent = 'Enabled';
+        }
+
+        // Update button text and status
+        document.getElementById('toggleBtn').addEventListener('click', function() {
+            blackMagic.toggle();
+            setTimeout(() => {
+                const isDark = document.body.style.backgroundColor && 
+                              document.body.style.backgroundColor !== 'rgb(255, 255, 255)' && 
+                              document.body.style.backgroundColor !== '';
+                this.textContent = isDark ? '☀️ Switch to Light Mode' : '🌓 Toggle Dark Mode';
+                updateStatus();
+            }, 100);
+        });
+
+        // Initialize display
+        updateExpiryDisplay(currentDuration);
+        updateStatus();
+
+        console.log('Cookie Duration Test initialized');
+        console.log('Test different cookie durations and refresh to see persistence');
+    </script>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackMagic Test - Theme Class Mode</title>
+    <style>
+        /* Base styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            transition: all 0.3s ease;
+            background-color: #ffffff;
+            color: #333333;
+        }
+
+        /* Dark theme class - this will be toggled by BlackMagic */
+        .dark-theme {
+            background-color: #1a1a1a !important;
+            color: #ffffff !important;
+        }
+
+        .dark-theme .card {
+            background-color: #2d2d2d !important;
+            border-color: #404040 !important;
+            color: #ffffff !important;
+        }
+
+        .dark-theme .btn {
+            filter: brightness(0.8);
+        }
+
+        .dark-theme .navbar {
+            background-color: #000000 !important;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .settings-info {
+            background-color: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .settings-info h3 {
+            color: #1976d2;
+            margin-top: 0;
+        }
+
+        .settings-info code {
+            background-color: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+
+        .card {
+            background-color: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 8px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary { background-color: #007bff; color: #ffffff; }
+        .btn-success { background-color: #28a745; color: #ffffff; }
+        .btn-danger { background-color: #dc3545; color: #ffffff; }
+        .btn-warning { background-color: #ffc107; color: #212529; }
+
+        .navbar {
+            background-color: #343a40;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .navbar li {
+            margin: 0 15px;
+        }
+
+        .navbar a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+        }
+
+        .toggle-btn {
+            background-color: #495057;
+            color: #ffffff;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+        }
+
+        .color-samples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .color-box {
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .red { background-color: #dc3545; color: white; }
+        .blue { background-color: #007bff; color: white; }
+        .green { background-color: #28a745; color: white; }
+        .yellow { background-color: #ffc107; color: black; }
+        .purple { background-color: #6f42c1; color: white; }
+        .orange { background-color: #fd7e14; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎨 BlackMagic Test: Theme Class Mode</h1>
+            <p>Testing with predefined CSS theme class</p>
+        </div>
+
+        <div class="settings-info">
+            <h3>⚙️ Current Settings</h3>
+            <p><strong>Mode:</strong> Theme Class Mode</p>
+            <p><strong>Theme Class:</strong> <code>dark-theme</code></p>
+            <p><strong>Auto Switch:</strong> <code>true</code></p>
+            <p><strong>Cookie Duration:</strong> <code>7 days</code></p>
+            <p><strong>Description:</strong> Uses predefined CSS classes instead of dynamic color conversion. The framework toggles the <code>dark-theme</code> class on the body element.</p>
+        </div>
+
+        <button id="toggleBtn" class="toggle-btn">🌓 Toggle Dark Mode</button>
+
+        <nav class="navbar">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+
+        <div class="card">
+            <h2>Button Tests</h2>
+            <p>These buttons should change appearance when dark mode is toggled:</p>
+            <button class="btn btn-primary">Primary Button</button>
+            <button class="btn btn-success">Success Button</button>
+            <button class="btn btn-danger">Danger Button</button>
+            <button class="btn btn-warning">Warning Button</button>
+        </div>
+
+        <div class="card">
+            <h2>Color Palette Test</h2>
+            <p>These color boxes test how background colors behave with theme class:</p>
+            <div class="color-samples">
+                <div class="color-box red">Red Box</div>
+                <div class="color-box blue">Blue Box</div>
+                <div class="color-box green">Green Box</div>
+                <div class="color-box yellow">Yellow Box</div>
+                <div class="color-box purple">Purple Box</div>
+                <div class="color-box orange">Orange Box</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Text Content</h2>
+            <p>This is a paragraph of text that should change color when the theme is toggled. The background of this card should also change.</p>
+            <ul>
+                <li>List item one</li>
+                <li>List item two</li>
+                <li>List item three</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="../../src/blackmagic.js"></script>
+    <script>
+        // Initialize with theme class
+        const        blackMagic = new BlackMagic({
+            themeClass: 'dark-theme',
+            cookieName: 'theme-class-test',
+            cookieDuration: 7,
+            autoSwitch: true
+        });
+
+        // Add event listener to the toggle button
+        document.getElementById('toggleBtn').addEventListener('click', function() {
+            blackMagic.toggle();
+            
+            // Update button text
+            setTimeout(() => {
+                const isDark = document.body.classList.contains('dark-theme');
+                this.textContent = isDark ? '☀️ Switch to Light Mode' : '🌓 Toggle Dark Mode';
+            }, 100);
+        });
+
+        console.log('Theme Class Test initialized');
+    </script>
+</body>
+</html>

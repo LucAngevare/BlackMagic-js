@@ -1,0 +1,66 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x, 20.x]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Build project
+      run: npm run build
+    
+    - name: Verify build outputs
+      run: |
+        test -f dist/blackmagic.js
+        test -f dist/blackmagic.esm.js
+        test -f dist/blackmagic.min.js
+    
+    - name: Check file sizes
+      run: |
+        echo "Build file sizes:"
+        ls -lh dist/
+    
+    - name: Start HTTP server and test examples
+      run: |
+        npm run dev &
+        SERVER_PID=$!
+        sleep 3
+        
+        # Test that server is running
+        curl -f http://localhost:8000/examples/ || exit 1
+        
+        # Test that main files are accessible
+        curl -f http://localhost:8000/src/blackmagic.js || exit 1
+        curl -f http://localhost:8000/dist/blackmagic.js || exit 1
+        curl -f http://localhost:8000/dist/blackmagic.esm.js || exit 1
+        curl -f http://localhost:8000/dist/blackmagic.min.js || exit 1
+        
+        # Stop server
+        kill $SERVER_PID
+        
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-files-node-${{ matrix.node-version }}
+        path: dist/

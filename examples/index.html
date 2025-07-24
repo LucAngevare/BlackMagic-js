@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackMagic Test Suite - Index</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333333;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            color: #666;
+            margin: 0;
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .test-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 25px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .test-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-color), var(--accent-color-light));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .test-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border-color: var(--accent-color);
+        }
+
+        .test-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .test-card h3 {
+            color: var(--accent-color);
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .test-card p {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .test-card .settings {
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 0.9rem;
+            color: #555;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .test-card .settings strong {
+            color: var(--accent-color);
+        }
+
+        /* Color themes for different test types */
+        .comprehensive { --accent-color: #667eea; --accent-color-light: #8fa4f3; }
+        .theme-class { --accent-color: #4caf50; --accent-color-light: #81c784; }
+        .high-factor { --accent-color: #ff5722; --accent-color-light: #ff8a65; }
+        .low-factor { --accent-color: #2196f3; --accent-color-light: #64b5f6; }
+        .auto-switch { --accent-color: #ff9800; --accent-color-light: #ffb74d; }
+        .custom-bg { --accent-color: #9c27b0; --accent-color-light: #ba68c8; }
+        .cookie-duration { --accent-color: #00bcd4; --accent-color-light: #4dd0e1; }
+        .persistence-test { --accent-color: #795548; --accent-color-light: #a1887f; }
+
+        .icon {
+            font-size: 1.5rem;
+        }
+
+        .intro {
+            background-color: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .intro h2 {
+            color: #1976d2;
+            margin-top: 0;
+        }
+
+        .framework-info {
+            background-color: #f3e5f5;
+            border: 2px solid #9c27b0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .framework-info h2 {
+            color: #7b1fa2;
+            margin-top: 0;
+        }
+
+        .framework-info code {
+            background-color: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+            color: #666;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-box {
+            background: linear-gradient(145deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌙 BlackMagic Framework</h1>
+            <p>Comprehensive Test Suite</p>
+        </div>
+
+        <div class="intro">
+            <h2>📖 About This Test Suite</h2>
+            <p>This test suite provides comprehensive testing for all BlackMagic framework settings and configurations. Each test file focuses on specific functionality to help you validate that your dark mode implementation works correctly across different scenarios.</p>
+        </div>
+
+        <div class="framework-info">
+            <h2>⚙️ Framework Configuration Options</h2>
+            <p>The BlackMagic framework supports the following configuration options:</p>
+            <ul>
+                <li><code>themeClass</code> - CSS class to toggle instead of dynamic color conversion</li>
+                <li><code>factor</code> - Intensity of color changes (0.1 = subtle, 0.8 = dramatic)</li>
+                <li><code>backgroundColor</code> - Custom dark mode background color</li>
+                <li><code>autoSwitch</code> - Automatically apply saved theme on page load</li>
+                <li><code>cookieDuration</code> - How long to remember user's theme preference</li>
+                <li><code>cookieName</code> - Custom cookie name for theme storage</li>
+            </ul>
+        </div>
+
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-number">8</div>
+                <div class="stat-label">Test Scenarios</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">100+</div>
+                <div class="stat-label">UI Elements</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Color Variations</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">∞</div>
+                <div class="stat-label">Possibilities</div>
+            </div>
+        </div>
+
+        <h2 style="text-align: center; color: #667eea; margin-bottom: 30px;">🧪 Test Files</h2>
+
+        <div class="test-grid">
+            <!-- Comprehensive Test -->
+            <a href="comprehensive/test.html" class="test-card comprehensive">
+                <h3><span class="icon">🎨</span> Comprehensive Test</h3>
+                <p>Complete testing environment with extensive UI elements, colors, and interactive components to thoroughly test the framework's color conversion capabilities.</p>
+                <div class="settings">
+                    <strong>Settings:</strong> Default configuration with factor=0.5, comprehensive color palette, forms, tables, and various UI components.
+                </div>
+            </a>
+
+            <!-- Theme Class Test -->
+            <a href="theme-class/test-theme-class.html" class="test-card theme-class">
+                <h3><span class="icon">🎭</span> Theme Class Mode</h3>
+                <p>Tests using predefined CSS classes instead of dynamic color conversion. Perfect for testing when you have existing dark mode CSS.</p>
+                <div class="settings">
+                    <strong>Settings:</strong> themeClass='dark-theme', predefined CSS rules, toggle-based switching.
+                </div>
+            </a>
+
+            <!-- High Factor Test -->
+            <a href="factors/test-high-factor.html" class="test-card high-factor">
+                <h3><span class="icon">🔥</span> High Factor Conversion</h3>
+                <p>Tests dramatic color changes with high factor values. See how extreme color shifts affect readability and visual appeal.</p>
+                <div class="settings">
+                    <strong>Settings:</strong> factor=0.8, backgroundColor='#0d0d0d', dramatic color transformations.
+                </div>
+            </a>
+
+            <!-- Low Factor Test -->
+            <a href="factors/test-low-factor.html" class="test-card low-factor">
+                <h3><span class="icon">🌱</span> Low Factor Conversion</h3>
+                <p>Tests subtle color adjustments with low factor values. Ideal for gentle theme changes that maintain high readability.</p>
+                <div class="settings">
+                    <strong>Settings:</strong> factor=0.1, backgroundColor='#f5f5f5', minimal color shifts.
+                </div>
+            </a>
+
+            <!-- Auto Switch Disabled -->
+            <a href="settings/test-auto-switch-disabled.html" class="test-card auto-switch">
+                <h3><span class="icon">🔧</span> Auto Switch Disabled</h3>
+                <p>Tests manual theme control without automatic application of saved preferences. Useful for custom theme logic implementation.</p>
+                <div class="settings">
+                    <strong>Settings:</strong> autoSwitch=false, manual control only, preference saving without auto-application.
+                </div>
+            </a>
+
+            <!-- Custom Backgrounds -->
+            <a href="settings/test-custom-backgrounds.html" class="test-card custom-bg">
+                <h3><span class="icon">🎨</span> Custom Background Colors</h3>
+                <p>Tests various dark mode background colors to find the perfect tone. Includes pure black, grays, and colored dark themes.</p>
+                <div class="settings">
+                    <strong>Settings:</strong> Multiple backgroundColor options, contrast testing, interactive background selection.
+                </div>
+            </a>
+
+            <!-- Cookie Duration -->
+            <a href="settings/test-cookie-duration.html" class="test-card cookie-duration">
+                <h3><span class="icon">⏰</span> Cookie Duration Testing</h3>
+                <p>Tests different cookie expiration times from minutes to years. Verify theme persistence across browser sessions.</p>
+                <div class="settings">
+                    <strong>Settings:</strong> Various cookieDuration values, expiration tracking, persistence testing.
+                </div>
+            </a>
+
+            <!-- Persistence Test -->
+            <a href="debug/persistence-test.html" class="test-card persistence-test">
+                <h3><span class="icon">🔄</span> Persistence Debug Tool</h3>
+                <p>Debug tool for testing theme persistence with real-time cookie and localStorage monitoring. Perfect for troubleshooting storage issues.</p>
+                <div class="settings">
+                    <strong>Settings:</strong> Debug interface, storage monitoring, manual refresh testing, clear storage functionality.
+                </div>
+            </a>
+
+            <!-- Basic Example -->
+            <a href="basic/example.html" class="test-card basic-example">
+                <h3><span class="icon">📝</span> Basic Example</h3>
+                <p>Simple implementation example showing minimal setup and basic usage. Great starting point for new implementations.</p>
+                <div class="settings">
+                    <strong>Settings:</strong> Basic configuration, themeClass mode, simple toggle functionality.
+                </div>
+            </a>
+        </div>
+
+        <div class="footer">
+            <h3>🚀 Getting Started</h3>
+            <p>Click on any test card above to start testing specific BlackMagic framework functionality.</p>
+            <p>Each test is designed to be independent and focuses on particular configuration options.</p>
+            <br>
+            <p style="color: #999; font-size: 0.9rem;">
+                © 2025 BlackMagic Framework Test Suite | Built for comprehensive dark mode testing
+            </p>
+        </div>
+    </div>
+</body>
+</html>

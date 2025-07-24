@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackMagic Persistence Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .test-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        .test-button:hover {
+            background-color: #0056b3;
+        }
+        .status {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .debug-info {
+            background-color: #f1f3f4;
+            border-left: 4px solid #666;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>BlackMagic Persistence Test</h1>
+        <p>This test verifies that theme preferences persist across page refreshes.</p>
+        
+        <div class="status">
+            <h3>Current Status</h3>
+            <p><strong>Current Theme:</strong> <span id="currentTheme">-</span></p>
+            <p><strong>Framework Instance:</strong> <span id="instanceStatus">-</span></p>
+        </div>
+
+        <div>
+            <button id="toggleBtn" class="test-button">🌓 Toggle Dark Mode</button>
+            <button id="refreshBtn" class="test-button">🔄 Refresh Page</button>
+            <button id="clearBtn" class="test-button">🗑️ Clear Storage</button>
+        </div>
+
+        <div class="debug-info">
+            <h4>Debug Information:</h4>
+            <div id="debugInfo">Loading...</div>
+        </div>
+
+        <div class="status">
+            <h3>Test Instructions</h3>
+            <ol>
+                <li>Click "Toggle Dark Mode" to switch to dark mode</li>
+                <li>Click "Refresh Page" or use F5 to reload</li>
+                <li>Verify that dark mode persists after refresh</li>
+                <li>Use "Clear Storage" to reset and test again</li>
+            </ol>
+        </div>
+    </div>
+
+    <script src="../../src/blackmagic.js"></script>
+    <script>
+        // Initialize BlackMagic
+        const blackMagic = new BlackMagic({
+            cookieName: 'persistence-test',
+            backgroundColor: '#1a1a1a',
+            factor: 0.4,
+            cookieDuration: 1, // 1 day
+            autoSwitch: true
+        });
+
+        // Update status display
+        function updateStatus() {
+            const currentTheme = blackMagic.getCurrentTheme();
+            document.getElementById('currentTheme').textContent = currentTheme;
+            document.getElementById('instanceStatus').textContent = 'Initialized';
+            
+            // Update debug info
+            const cookieValue = blackMagic.getCookie('persistence-test');
+            const localStorageValue = blackMagic.getLocalStorage('darkmode');
+            const debugInfo = `
+Cookie: ${cookieValue || 'null'}
+LocalStorage: ${localStorageValue || 'null'}
+AutoSwitch: ${blackMagic.autoSwitch}
+Background Color: ${document.body.style.backgroundColor || 'default'}
+            `.trim();
+            document.getElementById('debugInfo').textContent = debugInfo;
+        }
+
+        // Event listeners
+        document.getElementById('toggleBtn').addEventListener('click', function() {
+            blackMagic.toggle();
+            setTimeout(updateStatus, 100);
+        });
+
+        document.getElementById('refreshBtn').addEventListener('click', function() {
+            window.location.reload();
+        });
+
+        document.getElementById('clearBtn').addEventListener('click', function() {
+            // Clear cookie
+            blackMagic.setCookie('persistence-test', '', -1);
+            // Clear localStorage
+            blackMagic.setLocalStorage('darkmode', '');
+            localStorage.removeItem('darkmode');
+            // Refresh page
+            window.location.reload();
+        });
+
+        // Initialize status
+        setTimeout(updateStatus, 100);
+    </script>
+</body>
+</html>

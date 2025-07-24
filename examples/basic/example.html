@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackMagic - Basic Example</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 40px;
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .toggle-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+            margin: 20px;
+        }
+
+        .toggle-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .content {
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .feature h3 {
+            color: #667eea;
+            margin-top: 0;
+        }
+
+        .code-example {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+
+        .instructions {
+            background-color: #e3f2fd;
+            border: 1px solid #2196f3;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .instructions h3 {
+            color: #1976d2;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌙 BlackMagic Framework</h1>
+            <p>Basic Implementation Example</p>
+            <button id="toggleBtn" class="toggle-btn">🌓 Toggle Dark Mode</button>
+        </div>
+
+        <div class="content">
+            <h2>Welcome to BlackMagic</h2>
+            <p>This is a basic example showing how to implement the BlackMagic dark mode framework with just a few lines of code.</p>
+            
+            <div class="instructions">
+                <h3>📋 How to Test</h3>
+                <ol>
+                    <li>Click the "Toggle Dark Mode" button above</li>
+                    <li>Notice how all colors automatically adjust</li>
+                    <li>Refresh the page - your preference is saved!</li>
+                    <li>Test with different content and see the smart color adjustments</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="feature-list">
+            <div class="feature">
+                <h3>🎨 Smart Color Adjustment</h3>
+                <p>Automatically adjusts text and background colors while maintaining optimal contrast ratios for accessibility.</p>
+            </div>
+            
+            <div class="feature">
+                <h3>💾 Persistent Storage</h3>
+                <p>Uses both cookies and localStorage to remember user preferences across browser sessions.</p>
+            </div>
+            
+            <div class="feature">
+                <h3>⚡ Zero Dependencies</h3>
+                <p>Pure JavaScript with no external dependencies. Lightweight and fast loading.</p>
+            </div>
+            
+            <div class="feature">
+                <h3>♿ WCAG Compliant</h3>
+                <p>Ensures 4.5:1 contrast ratio compliance for accessibility standards.</p>
+            </div>
+        </div>
+
+        <div class="code-example">
+<pre>// Basic Implementation
+const blackMagic = new BlackMagic({
+    cookieName: 'my-theme',
+    backgroundColor: '#1a1a1a',
+    factor: 0.4,
+    cookieDuration: 30
+});
+
+// Add toggle functionality
+document.getElementById('toggleBtn').addEventListener('click', () => {
+    blackMagic.toggle();
+});</pre>
+        </div>
+
+        <div class="content">
+            <h2>Configuration Options</h2>
+            <p>The BlackMagic framework offers multiple configuration options:</p>
+            <ul>
+                <li><strong>cookieName:</strong> Custom name for the theme storage cookie</li>
+                <li><strong>backgroundColor:</strong> Dark mode background color</li>
+                <li><strong>factor:</strong> Intensity of color adjustments (0.1-0.8)</li>
+                <li><strong>themeClass:</strong> Use CSS classes instead of dynamic colors</li>
+                <li><strong>autoSwitch:</strong> Automatically apply saved theme on load</li>
+                <li><strong>cookieDuration:</strong> How long to remember the preference</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="../../src/blackmagic.js"></script>
+    <script>
+        // Initialize BlackMagic with basic configuration
+        const blackMagic = new BlackMagic({
+            cookieName: 'basic-example',
+            backgroundColor: '#1a1a1a',
+            factor: 0.4,
+            cookieDuration: 30,
+            autoSwitch: true
+        });
+
+        // Add event listener to toggle button
+        document.getElementById('toggleBtn').addEventListener('click', function() {
+            blackMagic.toggle();
+            
+            // Update button text based on current theme
+            setTimeout(() => {
+                const isDark = blackMagic.getCurrentTheme() === 'dark';
+                this.textContent = isDark ? '☀️ Switch to Light' : '🌓 Toggle Dark Mode';
+            }, 100);
+        });
+
+        // Initialize button text
+        setTimeout(() => {
+            const toggleBtn = document.getElementById('toggleBtn');
+            const isDark = blackMagic.getCurrentTheme() === 'dark';
+            toggleBtn.textContent = isDark ? '☀️ Switch to Light' : '🌓 Toggle Dark Mode';
+        }, 100);
+
+        console.log('BlackMagic Basic Example loaded');
+    </script>
+</body>
+</html>
