@@ -20,12 +20,12 @@ A powerful JavaScript framework for implementing intelligent dark mode with auto
 
 ### CDN (Recommended)
 ```html
-<script src="https://cdn.jsdelivr.net/gh/LucAngevare/BlackMagic-js@latest/dist/blackmagic.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/blackmagic-js@0.1.0/dist/blackmagic.min.js"></script>
 ```
 
 ### NPM
 ```bash
-npm install blackmagic-framework
+npm install blackmagic-js
 ```
 
 ### Basic Usage
