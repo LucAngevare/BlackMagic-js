@@ -1,6 +1,6 @@
 {
   "name": "blackmagic-js",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "A powerful dark mode framework with automatic color adjustment and contrast optimization",
   "main": "dist/blackmagic.js",
   "module": "dist/blackmagic.esm.js",
@@ -40,7 +40,7 @@
     "type": "git",
     "url": "git+https://github.com/lucangevare/BlackMagic-js.git"
   },
-  "homepage": "https://github.com/lucangevare/BlackMagic-js#readme",
+  "homepage": "https://blackmagic.lucangevare.nl/",
   "engines": {
     "node": ">=12.0.0"
   },
