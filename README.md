@@ -6,6 +6,8 @@ A powerful JavaScript framework for implementing intelligent dark mode with auto
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow.svg)](https://www.ecma-international.org/ecma-262/)
 [![WCAG](https://img.shields.io/badge/WCAG-AA%20Compliant-green.svg)](https://www.w3.org/WAI/WCAG21/quickref/)
 
+[See the demo!](https://blackmagic.lucangevare.nl/) and [read the docs](https://blackmagic.lucangevare.nl/docs/)
+
 ## ✨ Features
 
 - 🎨 **Smart Color Adjustment** - Automatically adjusts colors while maintaining readability
@@ -20,7 +22,7 @@ A powerful JavaScript framework for implementing intelligent dark mode with auto
 
 ### CDN (Recommended)
 ```html
-<script src="https://cdn.jsdelivr.net/npm/blackmagic-js@0.1.0/dist/blackmagic.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/blackmagic-js@latest/dist/blackmagic.min.js"></script>
 ```
 
 ### NPM
@@ -106,7 +108,7 @@ This repository includes comprehensive examples demonstrating various use cases:
 
 ```bash
 # Clone the repository
-git clone https://github.com/LucANgevare/BlackMagic-js.git
+git clone https://github.com/LucAngevare/BlackMagic-js.git
 cd BlackMagic-js
 
 # Start local server
@@ -115,6 +117,8 @@ npm run dev
 # Open examples
 open http://localhost:8000/examples/
 ```
+
+Or just look at the already running examples at [blackmagic.lucangevare.nl](https://blackmagic.lucangevare.nl/). 
 
 ## 🏗️ Project Structure
 
