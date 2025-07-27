@@ -5,6 +5,8 @@ A powerful JavaScript framework for implementing intelligent dark mode with auto
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow.svg)](https://www.ecma-international.org/ecma-262/)
 [![WCAG](https://img.shields.io/badge/WCAG-AA%20Compliant-green.svg)](https://www.w3.org/WAI/WCAG21/quickref/)
+[![NPM Downloads](https://img.shields.io/npm/dy/blackmagic-js?logo=npm&logoColor=red&color=red)](https://www.npmjs.com/package/blackmagic-js)
+[![jsDelivr Requests](https://data.jsdelivr.com/v1/package/npm/blackmagic-js/badge)](https://www.jsdelivr.com/package/npm/blackmagic-js)
 
 [See the demo!](https://blackmagic.lucangevare.nl/) and [read the docs](https://blackmagic.lucangevare.nl/docs/)
 
